@@ -24,6 +24,7 @@ public class Parse {
         for (Element link2 : mail){
             if (link2.text().contains("@"))
             System.out.println(link2.text());
+            System.out.println();
         }
         //System.out.println(site);
         //Elements links = content.getElementsByTag("a");
