@@ -10,6 +10,7 @@ public class Parse {
     public static void main(String[] args) throws IOException {
         ArrayList<String> sector = new ArrayList<String>();
         ArrayList<String> firmi = new ArrayList<String>();
+        ArrayList<String> pochta = new ArrayList<String>();
         Document doc,doc1, doc2;
         //Получение секторов фирм
         Elements body = Jsoup.connect("http://biysk24.ru/companies/").get().getElementsByClass("copy");
@@ -38,18 +39,17 @@ public class Parse {
                 continue;
             }
         }
+        //Сбор почты
         System.out.println(firmi);
-        doc = Jsoup.connect("http://avtocentr-terminal-motors.biysk24.ru").get();
-        Elements mail = doc.getElementsByTag("a");
-        for (Element link2 : mail){
-            if (link2.text().contains("@"))
-            System.out.println(link2.text());
-            //System.out.println();
+        for (String firma : firmi){
+            if (firma.contains(" ")) continue;
+            doc = Jsoup.connect(firma).get();
+            Elements mail = doc.getElementsByTag("a");
+            for (Element link2 : mail) {
+                if (link2.text().contains("@"))
+                    pochta.add(link2.text());
+            }
         }
-        //System.out.println(site);
-        //Elements links = content.getElementsByTag("a");
-        //Elements body3 = doc.select("[href].copy");
-        //System.out.println(body.attr("href"));
-        //System.out.println("body3= "+body3);
+        System.out.println(pochta);
     }
 }
